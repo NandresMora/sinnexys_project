@@ -1,5 +1,11 @@
+/**
+ * Componente Navbar
+ * Barra de navegación principal del sitio.
+ * Incluye lógica para scroll suave y menú responsive para móviles.
+ */
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react'; // Iconos para el menú móvil
+import logo from '../../assets/logo.png'; // Asegúrate de guardar la imagen como logo.png en src/assets
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,13 +28,12 @@ export default function Navbar() {
   };
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-[#0A1929] shadow-lg' : 'bg-transparent'
-    }`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-[#0A1929] shadow-lg' : 'bg-transparent'
+      }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex-shrink-0">
-            <h1 className="text-2xl font-bold text-[#00D9FF]">Sinnexys</h1>
+          <div className="flex-shrink-0 flex items-center gap-2">
+            <img src={logo} alt="Sinnexys" className="h-12 w-auto" />
           </div>
 
           <div className="hidden md:flex items-center space-x-8">

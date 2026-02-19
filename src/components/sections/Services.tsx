@@ -55,16 +55,16 @@ export default function Services() {
     {
       icon: <Laptop className="w-8 h-8 text-white" />,
       title: 'Soporte y Mantenimiento',
-      subtitle: 'Desde $50.000 COP',
+      subtitle: 'Portatiles y computadores Windows',
       packages: [
         {
           name: 'Básico',
-          price: '$50.000',
+          price: 'Desde $50.000',
           features: ['Limpieza física y software', 'Eliminación de virus', 'Optimización del sistema', 'Respaldo de datos']
         },
         {
           name: 'Profesional',
-          price: '$120.000',
+          price: 'Desde $120.000',
           features: ['Todo lo del paquete básico', 'Instalación de software', 'Configuración de red', 'Actualización de drivers', 'Soporte remoto 1 mes']
         },
         {
@@ -81,17 +81,17 @@ export default function Services() {
       packages: [
         {
           name: 'Landing Page',
-          price: '$200.000',
+          price: 'Desde $200.000',
           features: ['Diseño moderno y responsive', 'Hasta 5 secciones', 'Formulario de contacto', 'Optimización SEO básica', 'Hosting incluido 1 año']
         },
         {
           name: 'Sitio Corporativo',
-          price: '$800.000',
+          price: 'Desde $800.000',
           features: ['Hasta 10 páginas', 'Diseño personalizado', 'Panel de administración', 'Blog integrado', 'SEO avanzado', 'Soporte 3 meses']
         },
         {
           name: 'E-commerce Básico',
-          price: '$1.500.000',
+          price: 'Desde $1.500.000',
           features: ['Catálogo de productos', 'Carrito de compras', 'Pasarela de pago', 'Panel de administración', 'Gestión de inventario', 'Soporte 6 meses']
         }
       ]

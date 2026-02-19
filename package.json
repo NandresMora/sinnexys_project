@@ -1,14 +1,17 @@
 {
-  "name": "vite-react-typescript-starter",
+  "name": "sinnexys-project",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "author": "Ingeniero Jr",
+  "description": "Proyecto web para Sinnexys desarrollado con React y TypeScript",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit -p tsconfig.app.json"
+    "typecheck": "tsc --noEmit -p tsconfig.app.json",
+    "deploy": "npm run build"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",

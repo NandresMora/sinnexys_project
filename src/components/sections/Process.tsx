@@ -71,7 +71,7 @@ export default function Process() {
 
         <div className="mt-16 text-center">
           <a
-            href="https://wa.me/573000000000"
+            href="https://wa.me/573123602705"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-[#00D9FF] hover:bg-white text-[#0A1929] px-8 py-4 rounded-lg font-semibold transition-all hover:scale-105"

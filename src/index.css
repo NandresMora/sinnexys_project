@@ -1,51 +1,77 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+/**
+ * index.css - Estilos globales de la aplicación
+ * 
+ * Aquí se definen:
+ * - Las fuentes de Google Fonts (Inter para texto, Orbitron para títulos)
+ * - Las directivas de Tailwind CSS
+ * - Animaciones personalizadas (fadeIn, slideIn, pulse)
+ * - Clases de utilidad para retrasos de animación
+ */
 
+/* Importación de fuentes desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
+/* Directivas de Tailwind CSS - Estas cargan los estilos base, componentes y utilidades */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Estilos base globales */
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Scroll suave al navegar entre secciones */
   }
 
   body {
     font-family: 'Inter', sans-serif;
+    /* Fuente principal del sitio */
   }
 }
 
+/* Animaciones y utilidades personalizadas */
 @layer utilities {
+
+  /* Animación de aparición gradual desde abajo */
   @keyframes fadeIn {
     from {
       opacity: 0;
       transform: translateY(20px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
     }
   }
 
+  /* Animación de deslizamiento desde la izquierda */
   @keyframes slideIn {
     from {
       opacity: 0;
       transform: translateX(-10px);
     }
+
     to {
       opacity: 1;
       transform: translateX(0);
     }
   }
 
+  /* Animación de pulso (efecto de latido) */
   @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
       opacity: 1;
     }
+
     50% {
       opacity: 0.5;
     }
   }
 
+  /* Clases para aplicar las animaciones */
   .animate-fadeIn {
     animation: fadeIn 0.5s ease-out forwards;
   }
@@ -58,6 +84,7 @@
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
+  /* Clases para agregar retraso a las animaciones */
   .delay-100 {
     animation-delay: 100ms;
   }

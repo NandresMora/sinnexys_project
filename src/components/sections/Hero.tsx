@@ -24,7 +24,7 @@ export default function Hero() {
           <span className="text-[#00D9FF] text-sm font-medium">Soluciones tecnológicas profesionales</span>
         </div>
 
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight font-['Orbitron'] tracking-wide">
           Sinnexys
         </h1>
 
@@ -33,7 +33,7 @@ export default function Hero() {
         </p>
 
         <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-12">
-          Servicios IT integrales para pymes en Sabana Norte: desarrollo web profesional, soporte técnico especializado y soluciones tecnológicas a tu medida
+          Servicios IT integrales para pymes enfocados en la Sabana Norte: desarrollo web profesional, soporte técnico especializado y soluciones tecnológicas a tu medida
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

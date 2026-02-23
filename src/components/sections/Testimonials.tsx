@@ -71,7 +71,7 @@ export default function Testimonials() {
             Aprovecha esta oferta exclusiva para nuevos clientes y descubre la calidad de nuestros servicios
           </p>
           <a
-            href="https://wa.me/573000000000"
+            href="https://wa.me/573123602705"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block bg-white text-[#0066FF] px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition-all hover:scale-105"

@@ -1,5 +1,18 @@
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
 import { Mail, MapPin, Phone, Send } from 'lucide-react';
+import { supabase } from '../../lib/supabase';
+
+
+/**
+ * Lead type definition for Supabase
+ */
+type Lead = {
+  nombre: string;
+  email: string;
+  telefono: string;
+  servicio: string;
+  mensaje: string;
+};
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -12,26 +25,30 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
+      // Intentamos insertar el lead en la tabla 'leads' de Supabase
+      const { error } = await supabase
+        .from('leads')
+        .insert([
+          {
+            nombre: formData.name,
+            email: formData.email,
+            telefono: formData.phone ? Number(formData.phone) : null,
+            servicio: formData.service || null,
+            mensaje: formData.message
+          }
+        ]);
 
-      if (response.ok) {
-        setSubmitStatus('success');
-        setFormData({ name: '', email: '', phone: '', service: '', message: '' });
-      } else {
-        setSubmitStatus('error');
-      }
+      if (error) throw error;
+
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', phone: '', service: '', message: '' });
     } catch (error) {
+      console.error('Error enviando a Supabase:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -72,7 +89,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="text-white font-semibold mb-1">WhatsApp</h4>
-                    <a href="https://wa.me/57123602705" className="text-[#00D9FF] hover:underline">
+                    <a href="https://wa.me/573123602705" className="text-[#00D9FF] hover:underline">
                       +57 3123602705
                     </a>
                   </div>
@@ -84,8 +101,8 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="text-white font-semibold mb-1">Email</h4>
-                    <a href="mailto:contacto@sinnexys.com" className="text-[#00D9FF] hover:underline">
-                      contacto@sinnexys.com
+                    <a href="mailto:andres.mora.mateus@gmail.com" className="text-[#00D9FF] hover:underline">
+                      andres.mora.mateus@gmail.com
                     </a>
                   </div>
                 </div>
@@ -220,7 +237,7 @@ export default function Contact() {
 
               {submitStatus === 'error' && (
                 <div className="mt-4 p-4 bg-red-100 text-red-800 rounded-lg">
-                  Hubo un error al enviar el mensaje. Por favor, intenta de nuevo.
+                  Hubo un error al enviar el mensaje a nuestra base de datos. Por favor, intenta de nuevo.
                 </div>
               )}
             </form>

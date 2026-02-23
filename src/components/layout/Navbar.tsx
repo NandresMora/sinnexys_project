@@ -53,7 +53,7 @@ export default function Navbar() {
               Contacto
             </button>
             <a
-              href="https://wa.me/573000000000"
+              href="https://wa.me/573123602705"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-[#0066FF] hover:bg-[#00D9FF] text-white px-6 py-2 rounded-lg transition-all hover:scale-105"

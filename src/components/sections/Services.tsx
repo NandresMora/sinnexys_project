@@ -55,7 +55,7 @@ export default function Services() {
     {
       icon: <Laptop className="w-8 h-8 text-white" />,
       title: 'Soporte y Mantenimiento',
-      subtitle: 'Portatiles y computadores Windows',
+      subtitle: 'Portátiles, computadores y soporte remoto',
       packages: [
         {
           name: 'Básico',
@@ -65,23 +65,23 @@ export default function Services() {
         {
           name: 'Profesional',
           price: 'Desde $120.000',
-          features: ['Todo lo del paquete básico', 'Instalación de software', 'Configuración de red', 'Actualización de drivers', 'Soporte remoto 1 mes']
+          features: ['Todo lo del paquete básico', 'Instalación de software', 'Configuración remota', 'Actualización de drivers', 'Soporte remoto 1 mes']
         },
         {
           name: 'Empresarial',
           price: 'Cotización',
-          features: ['Soporte continuo mensual', 'Mantenimiento preventivo', 'Monitoreo proactivo', 'Atención prioritaria', 'Visitas programadas']
+          features: ['Soporte remoto continuo mensual', 'Mantenimiento preventivo', 'Monitoreo proactivo', 'Atención prioritaria', 'Visitas programadas']
         }
       ]
     },
     {
       icon: <Globe className="w-8 h-8 text-white" />,
       title: 'Desarrollo Web',
-      subtitle: 'Desde $200.000 COP',
+      subtitle: 'Ajustado a tu presupuesto',
       packages: [
         {
           name: 'Landing Page',
-          price: 'Desde $200.000',
+          price: 'Desde $500.000',
           features: ['Diseño moderno y responsive', 'Hasta 5 secciones', 'Formulario de contacto', 'Optimización SEO básica', 'Hosting incluido 1 año']
         },
         {
@@ -102,12 +102,12 @@ export default function Services() {
       subtitle: 'Cotización personalizada',
       packages: [
         {
-          name: 'Consultoría IT',
+          name: 'Consultoría Digital',
           price: 'Desde $150.000',
-          features: ['Análisis de necesidades', 'Diagnóstico técnico', 'Propuesta de soluciones', 'Plan de implementación', 'Seguimiento']
+          features: ['Análisis de necesidades digitales', 'Diagnóstico tecnológico', 'Propuesta de soluciones web', 'Plan de implementación', 'Seguimiento']
         },
         {
-          name: 'Hosting y Dominios',
+          name: 'Hosting y Correos',
           price: 'Desde $80.000/año',
           features: ['Registro de dominio', 'Hosting optimizado', 'Certificado SSL', 'Correos corporativos', 'Soporte técnico']
         },

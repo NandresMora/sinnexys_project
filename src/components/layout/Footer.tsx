@@ -72,7 +72,10 @@ export default function Footer() {
           <div>
             <h4 className="font-bold mb-4 text-[#00D9FF]">Síguenos</h4>
             <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#00D9FF] transition-colors">
+              <a href="https://www.facebook.com/sinnexys" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#00D9FF] transition-colors">
+
+
+
                 <Facebook className="w-5 h-5" />
               </a>
               <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#00D9FF] transition-colors">

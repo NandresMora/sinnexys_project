@@ -1,4 +1,7 @@
 import { ArrowRight, Sparkles } from 'lucide-react';
+import logo from '../../assets/logo.png';
+
+
 
 export default function Hero() {
   const scrollToSection = (id: string) => {
@@ -24,9 +27,12 @@ export default function Hero() {
           <span className="text-[#00D9FF] text-sm font-medium">Soluciones tecnológicas profesionales</span>
         </div>
 
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight font-['Orbitron'] tracking-wide">
-          Sinnexys
+
+
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight font-['Inter'] tracking-tight">
+          <span className="text-[#FFFFFF]">Sinnexys</span>
         </h1>
+
 
         <p className="text-2xl md:text-3xl text-[#00D9FF] font-semibold mb-6">
           Soluciones que impulsan tu crecimiento

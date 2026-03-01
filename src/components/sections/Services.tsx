@@ -5,7 +5,7 @@ interface ServiceCardProps {
   icon: React.ReactNode;
   title: string;
   subtitle: string;
-  packages: { name: string; price: string; features: string[] }[];
+  packages: { name: string; features: string[] }[];
 }
 
 function ServiceCard({ icon, title, subtitle, packages }: ServiceCardProps) {
@@ -35,7 +35,7 @@ function ServiceCard({ icon, title, subtitle, packages }: ServiceCardProps) {
             <div key={idx} className="bg-[#F0F4F8] rounded-lg p-4 border-l-4 border-[#0066FF]">
               <div className="flex justify-between items-center mb-2">
                 <h4 className="font-bold text-[#0A1929]">{pkg.name}</h4>
-                <span className="text-[#0066FF] font-bold">{pkg.price}</span>
+
               </div>
               <ul className="space-y-1">
                 {pkg.features.map((feature, i) => (
@@ -59,17 +59,17 @@ export default function Services() {
       packages: [
         {
           name: 'Básico',
-          price: 'Desde $50.000',
+
           features: ['Limpieza física y software', 'Eliminación de virus', 'Optimización del sistema', 'Respaldo de datos']
         },
         {
           name: 'Profesional',
-          price: 'Desde $120.000',
+
           features: ['Todo lo del paquete básico', 'Instalación de software', 'Configuración remota', 'Actualización de drivers', 'Soporte remoto 1 mes']
         },
         {
           name: 'Empresarial',
-          price: 'Cotización',
+
           features: ['Soporte remoto continuo mensual', 'Mantenimiento preventivo', 'Monitoreo proactivo', 'Atención prioritaria', 'Visitas programadas']
         }
       ]
@@ -81,17 +81,16 @@ export default function Services() {
       packages: [
         {
           name: 'Landing Page',
-          price: 'Desde $500.000',
+
           features: ['Diseño moderno y responsive', 'Hasta 5 secciones', 'Formulario de contacto', 'Optimización SEO básica', 'Hosting incluido 1 año']
         },
         {
           name: 'Sitio Corporativo',
-          price: 'Desde $800.000',
+
           features: ['Hasta 10 páginas', 'Diseño personalizado', 'Panel de administración', 'Blog integrado', 'SEO avanzado', 'Soporte 3 meses']
         },
         {
           name: 'E-commerce Básico',
-          price: 'Desde $1.500.000',
           features: ['Catálogo de productos', 'Carrito de compras', 'Pasarela de pago', 'Panel de administración', 'Gestión de inventario', 'Soporte 6 meses']
         }
       ]
@@ -103,17 +102,14 @@ export default function Services() {
       packages: [
         {
           name: 'Consultoría Digital',
-          price: 'Desde $150.000',
           features: ['Análisis de necesidades digitales', 'Diagnóstico tecnológico', 'Propuesta de soluciones web', 'Plan de implementación', 'Seguimiento']
         },
         {
           name: 'Hosting y Correos',
-          price: 'Desde $80.000/año',
           features: ['Registro de dominio', 'Hosting optimizado', 'Certificado SSL', 'Correos corporativos', 'Soporte técnico']
         },
         {
           name: 'Mantenimiento Web',
-          price: 'Desde $100.000/mes',
           features: ['Actualizaciones de seguridad', 'Respaldos automáticos', 'Monitoreo 24/7', 'Optimización de rendimiento', 'Soporte prioritario']
         }
       ]

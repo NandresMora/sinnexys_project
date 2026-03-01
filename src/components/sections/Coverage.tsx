@@ -40,7 +40,7 @@ export default function Coverage() {
               </h3>
               <p className="text-gray-600 mb-6 leading-relaxed">
                 Nuestro equipo técnico se desplaza hasta tu ubicación en la Sabana Norte
-                para resolver problemas de software, equipos y soporte especializado in-situ.
+                para resolver problemas de software, equipos y soporte especializado in-site.
               </p>
               {/* Lista de servicios presenciales */}
               <ul className="space-y-3">

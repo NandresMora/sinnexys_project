@@ -101,8 +101,8 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="text-white font-semibold mb-1">Email</h4>
-                    <a href="mailto:andres.mora.mateus@gmail.com" className="text-[#00D9FF] hover:underline">
-                      andres.mora.mateus@gmail.com
+                    <a href="mailto:contactosinnexys@gmail.com" className="text-[#00D9FF] hover:underline">
+                      contactosinnexys@gmail.com
                     </a>
                   </div>
                 </div>
@@ -128,8 +128,8 @@ export default function Contact() {
               </h3>
               <div className="space-y-2 text-gray-300">
                 <p><span className="font-semibold text-white">Lunes - Viernes:</span> 8:00 AM - 6:00 PM</p>
-                <p><span className="font-semibold text-white">Sábados:</span> 9:00 AM - 2:00 PM</p>
-                <p><span className="font-semibold text-white">Domingos:</span> Cerrado</p>
+                <p><span className="font-semibold text-white">Sábados y Domingos:</span> 9:00 AM - 5:00 PM</p>
+
               </div>
             </div>
           </div>

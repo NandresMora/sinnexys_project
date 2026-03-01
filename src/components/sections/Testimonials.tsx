@@ -28,36 +28,6 @@ export default function Testimonials() {
   return (
     <section className="py-20 bg-[#F0F4F8]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#0A1929] mb-4">
-            Lo que dicen nuestros clientes
-          </h2>
-          <p className="text-xl text-gray-600">
-            La confianza de nuestros clientes nos impulsa a mejorar cada día
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
-          {testimonials.map((testimonial, idx) => (
-            <div key={idx} className="bg-white rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-              <div className="flex gap-1 mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-[#FFD700] text-[#FFD700]" />
-                ))}
-              </div>
-
-              <p className="text-gray-700 mb-6 italic">
-                "{testimonial.text}"
-              </p>
-
-              <div className="border-t border-gray-200 pt-4">
-                <div className="font-bold text-[#0A1929]">{testimonial.name}</div>
-                <div className="text-sm text-gray-600">{testimonial.role}</div>
-                <div className="text-sm text-[#0066FF]">{testimonial.company}</div>
-              </div>
-            </div>
-          ))}
-        </div>
 
         <div className="bg-gradient-to-r from-[#0066FF] to-[#00D9FF] rounded-xl p-8 md:p-12 text-white text-center shadow-2xl">
           <Gift className="w-16 h-16 mx-auto mb-4" />

@@ -39,7 +39,8 @@ export default function Hero() {
         </p>
 
         <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-12">
-          Servicios IT integrales para pymes enfocados en la Sabana Norte: desarrollo web profesional, soporte técnico especializado y soluciones tecnológicas a tu medida
+          Transforma tu pyme con soluciones IT integrales : desarrollo web profesional, soporte técnico especializado y soluciones tecnológicas a tu medida.
+
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

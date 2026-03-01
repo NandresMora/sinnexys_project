@@ -1,19 +1,10 @@
-/**
- * App.tsx - Componente principal de la aplicación
- * 
- * Este componente actúa como el "contenedor" de toda la página web.
- * Aquí se importan y organizan todas las secciones que componen el sitio
- * de Sinnexys, siguiendo un orden lógico de navegación.
- * 
- * Estructura:
- * - Layout: Navbar (navegación) y Footer (pie de página)
- * - Sections: Hero, Services, Process, Coverage, About, Testimonials, Contact
- * - Common: WhatsAppButton (botón flotante)
- */
+
 
 // Componentes de Layout (estructura general de la página)
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
+import { Analytics } from '@vercel/analytics/react';
+
 
 // Componentes de Secciones (contenido principal)
 import Hero from './components/sections/Hero';
@@ -27,11 +18,7 @@ import Contact from './components/sections/Contact';
 // Componentes Comunes (elementos reutilizables)
 import WhatsAppButton from './components/common/WhatsAppButton';
 
-/**
- * Componente App
- * Renderiza todas las secciones de la página en orden.
- * Usa 'min-h-screen' para que ocupe al menos toda la altura de la pantalla.
- */
+
 function App() {
   return (
     <div className="min-h-screen">

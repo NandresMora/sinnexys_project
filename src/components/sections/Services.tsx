@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { Laptop, Globe, Settings, ChevronDown, ChevronUp } from 'lucide-react';
+import imgSupport from '../../assets/support.jpg';
+import imgDevelopment from '../../assets/develoment.jpg';
+import imgSoluciones from '../../assets/soluciones.jpg';
 
 interface ServiceCardProps {
   icon: React.ReactNode;
@@ -75,7 +78,7 @@ export default function Services() {
       icon: <Laptop className="w-8 h-8 text-white" />,
       title: 'Soporte y Mantenimiento',
       subtitle: 'Portátiles, computadores y soporte remoto',
-      image: '/src/assets/support.jpg',
+      image: imgSupport,
       packages: [
         {
           name: 'Básico',
@@ -95,7 +98,7 @@ export default function Services() {
       icon: <Globe className="w-8 h-8 text-white" />,
       title: 'Desarrollo Web',
       subtitle: 'Ajustado a tu presupuesto',
-      image: '/src/assets/develoment.jpg',
+      image: imgDevelopment,
       packages: [
         {
           name: 'Landing Page',
@@ -115,7 +118,7 @@ export default function Services() {
       icon: <Settings className="w-8 h-8 text-white" />,
       title: 'Soluciones IT',
       subtitle: 'Cotización personalizada',
-      image: '/src/assets/soluciones.jpg',
+      image: imgSoluciones,
       packages: [
         {
           name: 'Consultoría Digital',

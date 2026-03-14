@@ -7,6 +7,7 @@
  *   - Badge flotante inferior derecho ("Disponible 24/7")
  */
 import { Sparkles } from 'lucide-react';
+import heroImg from '../../../assets/hero.png';
 
 const FEATURE_ROWS = [
     {
@@ -88,7 +89,7 @@ export default function HeroRightColumn() {
                 {/* Imagen principal */}
                 <div style={{ borderRadius: 18, overflow: 'hidden', marginBottom: 24, position: 'relative' }}>
                     <img
-                        src="/src/assets/hero.png"
+                        src={heroImg}
                         alt="Equipo tecnológico"
                         style={{ width: '100%', height: 260, objectFit: 'cover', display: 'block' }}
                     />

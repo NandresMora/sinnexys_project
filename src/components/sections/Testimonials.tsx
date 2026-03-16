@@ -5,14 +5,14 @@ export default function Testimonials() {
     {
       name: 'María González',
       role: 'Gerente General',
-      company: 'Empresa Local',
+      company: 'Restaurante',
       text: 'Excelente servicio y atención. Resolvieron nuestros problemas de IT rápidamente.',
       rating: 5
     },
     {
       name: 'Carlos Ramírez',
       role: 'Dueño',
-      company: 'Negocio Pyme',
+      company: 'Asesoría Contable',
       text: 'Muy profesionales, nos desarrollaron una página web moderna y funcional.',
       rating: 5
     },

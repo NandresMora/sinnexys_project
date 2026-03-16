@@ -2,9 +2,9 @@ import { Shield, DollarSign, Users, Zap, TrendingUp, Award } from 'lucide-react'
 
 export default function About() {
   const stats = [
-    { number: '50+', label: 'Clientes satisfechos' },
-    { number: '100+', label: 'Proyectos realizados' },
-    { number: '3+', label: 'Años de experiencia' },
+    { number: '5+', label: 'Clientes satisfechos' },
+    { number: '10+', label: 'Proyectos realizados' },
+    { number: '11+', label: 'Meses de experiencia' },
     { number: '99%', label: 'Tasa de satisfacción' },
   ];
 

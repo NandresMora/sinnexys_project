@@ -43,6 +43,10 @@ export default defineConfig({
           },
         ],
       },
+      devOptions: {
+        enabled: true, // Permite probar SW en `npm run dev` para debugging
+        type: 'module',
+      },
       workbox: {
         // Cache assets statically (JS, CSS, fonts, images)
         runtimeCaching: [

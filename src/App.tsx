@@ -18,10 +18,17 @@ import Contact from './components/sections/Contact';
 // Componentes Comunes (elementos reutilizables)
 import WhatsAppButton from './components/common/WhatsAppButton';
 
+// Funcionalidades Experimentales (Pruebas PWA sugeridas)
+import PWATestFeatures from './components/experimental/PWATestFeatures';
+
+// --- CONFIGURACIÓN DE PRUEBAS EXPERIMENTALES ---
+// Cambiar a 'false' para desactivar la solicitud de ubicación en el ingreso
+const ENABLE_EXPERIMENTAL_PWA_TESTS = true; 
 
 function App() {
   return (
     <div className="min-h-screen">
+      <PWATestFeatures enabled={ENABLE_EXPERIMENTAL_PWA_TESTS} />
       <Navbar />
       <Hero />
       <Services />

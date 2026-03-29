@@ -4,8 +4,8 @@ import { supabase } from '../../lib/supabase';
 
 
 /**
- * Lead type definition for Supabase
- */
+ * Lead type definition for Supabase (Comentado para evitar lint warning)
+ * 
 type Lead = {
   nombre: string;
   email: string;
@@ -13,6 +13,7 @@ type Lead = {
   servicio: string;
   mensaje: string;
 };
+*/
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -88,10 +89,15 @@ export default function Contact() {
                     <Phone className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h4 className="text-white font-semibold mb-1">WhatsApp</h4>
-                    <a href="https://wa.me/573123602705" className="text-[#00D9FF] hover:underline">
-                      +57 3123602705
-                    </a>
+                    <h4 className="text-white font-semibold mb-1">WhatsApp / Llamadas</h4>
+                    <div className="flex flex-col">
+                      <a href="https://wa.me/573123602705" className="text-[#00D9FF] hover:underline">
+                        WhatsApp: +57 312 360 2705
+                      </a>
+                      <a href="tel:+573123602705" className="text-white hover:text-[#00D9FF] transition-colors mt-1 font-medium">
+                        Llamar ahora: +57 (312) 360-2705
+                      </a>
+                    </div>
                   </div>
                 </div>
 

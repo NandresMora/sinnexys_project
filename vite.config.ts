@@ -14,16 +14,21 @@ export default defineConfig({
         'pwa-192x192.png',
         'pwa-512x512.png',
         'maskable-icon-512x512.png',
+        'screenshot-desktop.png',
+        'screenshot-mobile.png',
       ],
       manifest: {
         name: 'Sinnexys - Soluciones IT',
         short_name: 'Sinnexys',
         description: 'Servicios de desarrollo web, soporte técnico y soluciones IT para pymes en Sabana Norte.',
         start_url: '/',
+        scope: '/',
         display: 'standalone',
+        orientation: 'any',
         background_color: '#0a0a0a',
         theme_color: '#0066FF',
         lang: 'es',
+        categories: ['business', 'productivity', 'utilities'],
         icons: [
           {
             src: 'pwa-192x192.png',
@@ -34,6 +39,7 @@ export default defineConfig({
             src: 'pwa-512x512.png',
             sizes: '512x512',
             type: 'image/png',
+            purpose: 'any',
           },
           {
             src: 'maskable-icon-512x512.png',
@@ -42,13 +48,28 @@ export default defineConfig({
             purpose: 'maskable',
           },
         ],
-      },
-      devOptions: {
-        enabled: true, // Permite probar SW en `npm run dev` para debugging
-        type: 'module',
+        // ✅ Screenshots requeridos para "Richer PWA Install UI" en Chrome
+        screenshots: [
+          {
+            src: 'screenshot-desktop.png',
+            sizes: '1280x800',
+            type: 'image/png',
+            form_factor: 'wide',
+            label: 'Sinnexys en escritorio',
+          },
+          {
+            src: 'screenshot-mobile.png',
+            sizes: '390x844',
+            type: 'image/png',
+            form_factor: 'narrow',
+            label: 'Sinnexys en móvil',
+          },
+        ],
       },
       workbox: {
-        // Cache assets statically (JS, CSS, fonts, images)
+        // Asegura que el SW controle todas las rutas desde la raíz
+        navigateFallback: 'index.html',
+        navigateFallbackDenylist: [/^\/api\//],
         runtimeCaching: [
           {
             // Supabase API — always fetch fresh data (networkFirst)
@@ -101,4 +122,3 @@ export default defineConfig({
   ],
   base: '/',
 })
-

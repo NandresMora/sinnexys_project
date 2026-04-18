@@ -71,8 +71,54 @@ export default defineConfig({
         navigateFallback: 'index.html',
         navigateFallbackDenylist: [/^\/api\//],
         runtimeCaching: [
+          // ─────────────────────────────────────────────────────────────────
+          // ESCRITURAS Supabase (POST / PATCH / DELETE)
+          // Estrategia: NetworkOnly + BackgroundSync para soporte offline.
+          // Si no hay red, la petición se encola y se reintenta hasta 24 h.
+          // ─────────────────────────────────────────────────────────────────
           {
-            // Supabase API — always fetch fresh data (networkFirst)
+            urlPattern: /^https:\/\/.*\.supabase\.co\/rest\/.*/i,
+            method: 'POST',
+            handler: 'NetworkOnly',
+            options: {
+              backgroundSync: {
+                name: 'supabase-write-queue',
+                options: {
+                  maxRetentionTime: 24 * 60, // 24 horas en minutos
+                },
+              },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/.*\.supabase\.co\/rest\/.*/i,
+            method: 'PATCH',
+            handler: 'NetworkOnly',
+            options: {
+              backgroundSync: {
+                name: 'supabase-write-queue',
+                options: {
+                  maxRetentionTime: 24 * 60, // 24 horas en minutos
+                },
+              },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/.*\.supabase\.co\/rest\/.*/i,
+            method: 'DELETE',
+            handler: 'NetworkOnly',
+            options: {
+              backgroundSync: {
+                name: 'supabase-write-queue',
+                options: {
+                  maxRetentionTime: 24 * 60, // 24 horas en minutos
+                },
+              },
+            },
+          },
+          // ─────────────────────────────────────────────────────────────────
+          // LECTURAS Supabase (GET) — NetworkFirst, sirve cache si no hay red
+          // ─────────────────────────────────────────────────────────────────
+          {
             urlPattern: /^https:\/\/.*\.supabase\.co\/.*/i,
             handler: 'NetworkFirst',
             options: {

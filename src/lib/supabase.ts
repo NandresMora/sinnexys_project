@@ -3,14 +3,26 @@ import { createClient } from '@supabase/supabase-js'
 /**
  * supabase.ts
  *
- * Configura y exporta el cliente de Supabase para toda la aplicación.
+ * Cliente Supabase con soporte REAL de offline mediante cola propia en localStorage.
  *
- * Mejoras implementadas:
- * - Validación de variables de entorno en tiempo de carga.
- * - Helper `submitLead` con detección de estado offline y reintentos.
- * - El cliente usa `fetch` nativo; el Service Worker se encarga del
- *   BackgroundSync cuando no hay red.
+ * ¿Por qué NO usar solo el BackgroundSync del Service Worker?
+ * ─────────────────────────────────────────────────────────────
+ * El evento `sync` del SW solo se dispara cuando el NAVEGADOR detecta
+ * reconexión a nivel de sistema operativo. En Chrome DevTools (offline toggle),
+ * ese evento NUNCA se dispara → la cola del SW jamás se procesa.
+ *
+ * Solución: cola explícita en localStorage + listener `window.online`.
+ * Funciona en DevTools, en mobile y en reconexión real.
+ *
+ * Flujo:
+ *  1. Online  → insert directo a Supabase.
+ *  2. Offline → payload guardado en localStorage como "pendiente".
+ *  3. `window` emite 'online' → se procesan TODOS los pendientes automáticamente.
  */
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Configuración del cliente
+// ─────────────────────────────────────────────────────────────────────────────
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string
@@ -21,14 +33,8 @@ if (!supabaseUrl || !supabaseAnonKey) {
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
-    persistSession: false,   // App pública, no necesitamos sesión
+    persistSession: false,
     autoRefreshToken: false,
-  },
-  global: {
-    headers: {
-      // Cabecera explícita para que el SW reconozca la petición
-      'X-Client-Info': 'sinnexys-web/1.0',
-    },
   },
 })
 
@@ -45,37 +51,117 @@ export type LeadPayload = {
 }
 
 export type SubmitResult =
-  | { ok: true; queued: false }          // Guardado en Supabase ✅
-  | { ok: true; queued: true }           // Sin red — encolado por el SW 📬
-  | { ok: false; message: string }       // Error real ❌
+  | { ok: true; queued: false }       // Guardado en Supabase ✅
+  | { ok: true; queued: true }        // Sin red — guardado local, se enviará luego 📬
+  | { ok: false; message: string }    // Error real ❌
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Helper principal
+// Cola offline en localStorage
+// ─────────────────────────────────────────────────────────────────────────────
+
+const QUEUE_KEY = 'sinnexys_offline_leads'
+const MAX_AGE_MS = 24 * 60 * 60 * 1000 // 24 horas
+
+type QueuedLead = LeadPayload & { _queuedAt: number }
+
+/** Agrega un lead a la cola persistente de localStorage */
+function enqueueOfflineLead(payload: LeadPayload): void {
+  try {
+    const existing: QueuedLead[] = JSON.parse(localStorage.getItem(QUEUE_KEY) || '[]')
+    existing.push({ ...payload, _queuedAt: Date.now() })
+    localStorage.setItem(QUEUE_KEY, JSON.stringify(existing))
+    console.log('📬 Lead guardado en cola offline. Total pendientes:', existing.length)
+  } catch (e) {
+    console.warn('⚠️ No se pudo guardar en la cola offline:', e)
+  }
+}
+
+/** Procesa y reenvía todos los leads pendientes al recuperar la red */
+export async function flushOfflineQueue(): Promise<void> {
+  try {
+    const raw = localStorage.getItem(QUEUE_KEY)
+    if (!raw) return
+
+    const queue: QueuedLead[] = JSON.parse(raw)
+    if (queue.length === 0) return
+
+    console.log(`🌐 Conexión restaurada. Procesando ${queue.length} lead(s) pendiente(s)...`)
+
+    const remaining: QueuedLead[] = []
+
+    for (const item of queue) {
+      // Descartar leads con más de 24 h en cola
+      if (Date.now() - item._queuedAt > MAX_AGE_MS) {
+        console.warn('⌛ Lead descartado por antigüedad:', item.email)
+        continue
+      }
+
+      // Extraer metadato interno antes de enviar
+      const { _queuedAt: _ignored, ...payload } = item
+
+      try {
+        const { error } = await supabase.from('leads').insert([payload])
+
+        if (error) {
+          console.error('❌ Error al reenviar lead:', error.message)
+          remaining.push(item) // Volver a encolar si falla
+        } else {
+          console.log('✅ Lead reenviado exitosamente:', payload.email)
+        }
+      } catch {
+        // Fallo de red durante el flush — mantener en cola
+        remaining.push(item)
+      }
+    }
+
+    localStorage.setItem(QUEUE_KEY, JSON.stringify(remaining))
+
+    if (remaining.length === 0) {
+      console.log('✅ Cola offline procesada completamente.')
+    } else {
+      console.warn(`⚠️ ${remaining.length} lead(s) no pudieron reenviarse y siguen en cola.`)
+    }
+  } catch (e) {
+    console.warn('⚠️ Error al procesar la cola offline:', e)
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Listener global de reconexión — se registra UNA sola vez al importar el módulo
+// ─────────────────────────────────────────────────────────────────────────────
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('online', () => {
+    // Pequeño delay para asegurarse de que la red es estable antes de reintentar
+    setTimeout(flushOfflineQueue, 1500)
+  })
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Helper principal de envío
 // ─────────────────────────────────────────────────────────────────────────────
 
 /**
- * Inserta un lead en Supabase.
+ * Envía un lead a Supabase con manejo completo de offline.
  *
- * - Si el navegador reporta que está offline, devuelve `{ ok: true, queued: true }`
- *   de inmediato: el Service Worker reintentará la petición hasta 24 h.
- * - Si hay error de red en línea (fetch fail), re-lanza para que el componente
- *   muestre un feedback claro.
+ * - Online  → POST directo. Éxito: `{ ok: true, queued: false }`.
+ * - Offline → Se guarda en localStorage. Al recuperar red, se envía automáticamente.
+ *             Resultado: `{ ok: true, queued: true }`.
+ * - Error de Supabase (RLS, validación, etc.) → `{ ok: false, message }`.
  */
 export async function submitLead(payload: LeadPayload): Promise<SubmitResult> {
-  // 1. ¿Estamos offline según el navegador?
+  // ── Caso 1: Sin red detectada ──────────────────────────────────────────────
   if (!navigator.onLine) {
-    // Hacemos la petición igualmente para que el SW la encole vía BackgroundSync
-    // No esperamos respuesta — es fire-and-forget cuando estamos offline
-    void supabase.from('leads').insert([payload])
+    enqueueOfflineLead(payload)
     return { ok: true, queued: true }
   }
 
-  // 2. Intento normal con red disponible
+  // ── Caso 2: Con red — intento directo ──────────────────────────────────────
   try {
     const { error } = await supabase.from('leads').insert([payload])
 
     if (error) {
-      // Error de Supabase (RLS, constraint, etc.) — no es un error de red
+      // Error de Supabase (no de red): policy, constraint, etc.
       console.error('❌ Error de Supabase:', error)
       return {
         ok: false,
@@ -84,15 +170,15 @@ export async function submitLead(payload: LeadPayload): Promise<SubmitResult> {
     }
 
     return { ok: true, queued: false }
+
   } catch (err) {
-    // TypeError: Failed to fetch → problema de red aunque onLine=true (VPN, DNS, etc.)
+    // TypeError: Failed to fetch → fallo de red aunque onLine=true
     const isNetworkError =
       err instanceof TypeError && err.message.toLowerCase().includes('fetch')
 
     if (isNetworkError) {
-      console.warn('⚠️ Error de red al enviar a Supabase. El SW reintentará más tarde.')
-      // Intentamos de nuevo para que el SW lo encole
-      void supabase.from('leads').insert([payload])
+      console.warn('⚠️ Failed to fetch con onLine=true — guardando en cola offline.')
+      enqueueOfflineLead(payload)
       return { ok: true, queued: true }
     }
 

@@ -1,6 +1,6 @@
 import { useState, FormEvent } from 'react';
 import { Mail, MapPin, Phone, Send, User, AtSign, MessageSquare } from 'lucide-react';
-import { submitLead } from '../../lib/supabase';
+//import { submitLead } from '../../lib/supabase';
 
 
 /**
@@ -27,9 +27,12 @@ export default function Contact() {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'queued' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    const { submitLead } = await import('../../lib/supabase');
 
     const result = await submitLead({
       nombre: formData.name,
@@ -39,6 +42,7 @@ export default function Contact() {
       mensaje: formData.message,
     });
 
+    // ✅ Esta parte faltaba — no la elimines
     if (result.ok) {
       setSubmitStatus(result.queued ? 'queued' : 'success');
       setFormData({ name: '', email: '', phone: '', service: '', message: '' });
@@ -50,6 +54,7 @@ export default function Contact() {
     setIsSubmitting(false);
     setTimeout(() => setSubmitStatus('idle'), 6000);
   };
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({

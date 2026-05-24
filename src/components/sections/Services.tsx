@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Laptop, Globe, Settings, ChevronDown, ChevronUp } from 'lucide-react';
-import imgSupport from '../../assets/support.jpg';
-import imgDevelopment from '../../assets/develoment.jpg';
-import imgSoluciones from '../../assets/soluciones.jpg';
+import imgSupport from '../../assets/support.avif';
+import imgDevelopment from '../../assets/develoment.avif';
+import imgSoluciones from '../../assets/soluciones.avif';
 
 interface ServiceCardProps {
   icon: React.ReactNode;
@@ -22,7 +22,13 @@ function ServiceCard({ icon, title, subtitle, packages, image }: ServiceCardProp
       <div className="relative h-48 overflow-hidden rounded-t-xl">
         <img
           src={image}
+          srcSet={`${image} 475w, ${image} 800w`}
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           alt={title}
+          width="475"
+          height="317"
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />

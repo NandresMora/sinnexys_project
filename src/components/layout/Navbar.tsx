@@ -5,7 +5,8 @@
  */
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react'; // Iconos para el menú móvil
-import logo from '../../assets/logo.png'; // Asegúrate de guardar la imagen como logo.png en src/assets
+import logo from '../../assets/logo.avif';
+
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,7 +34,16 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0 flex items-center gap-2">
-            <img src={logo} alt="Sinnexys" className="h-12 w-auto" />
+
+            <img
+              src={logo}
+              alt="Sinnexys"
+              width="189"
+              height="60"
+              className="h-12 w-auto"
+              decoding="async"
+              fetchPriority="high"
+            />
           </div>
 
           <div className="hidden md:flex items-center space-x-8">
@@ -65,6 +75,7 @@ export default function Navbar() {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
               className="text-gray-300 hover:text-[#00D9FF] transition-colors"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}

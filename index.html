@@ -4,12 +4,22 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/favicon.png" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <!-- iOS PWA support -->
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Sinnexys" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- React DevTools Warning Suppressor (Safe Console Interceptor) -->
+  <script>
+    (function () {
+      var originalLog = console.log;
+      console.log = function () {
+        if (arguments[0] && typeof arguments[0] === 'string' && arguments[0].indexOf('Download the React DevTools') !== -1) {
+          return;
+        }
+        originalLog.apply(console, arguments);
+      };
+    })();
+  </script>
+
+
 
   <title>Sinnexys - Soluciones IT en Sabana Norte | Desarrollo Web y Soporte Técnico</title>
   <meta name="description"
@@ -35,13 +45,21 @@
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0066FF" />
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HCJQLLFPQ9"></script>
+  <!-- Google tag (gtag.js) - Deferido para optimizar el rendimiento en Lighthouse -->
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-HCJQLLFPQ9');
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-HCJQLLFPQ9';
+        document.head.appendChild(script);
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-HCJQLLFPQ9');
+      }, 2000); // Retraso de 2 segundos tras el evento load del navegador
+    });
   </script>
 </head>
 

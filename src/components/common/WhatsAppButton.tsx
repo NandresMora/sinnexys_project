@@ -9,6 +9,7 @@ export default function WhatsAppButton() {
       href="https://wa.me/573123602705"
       target="_blank"
       rel="noopener noreferrer"
+      aria-label="Contactar por WhatsApp"
       className="fixed bottom-6 right-6 z-50 group"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

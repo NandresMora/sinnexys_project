@@ -1,170 +1,24 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { VitePWA } from 'vite-plugin-pwa'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
-    VitePWA({
-      registerType: 'autoUpdate',
-      includeAssets: [
-        'favicon.png',
-        'apple-touch-icon.png',
-        'pwa-192x192.png',
-        'pwa-512x512.png',
-        'maskable-icon-512x512.png',
-        'screenshot-desktop.png',
-        'screenshot-mobile.png',
-      ],
-      manifest: {
-        name: 'Sinnexys - Soluciones IT',
-        short_name: 'Sinnexys',
-        description: 'Servicios de desarrollo web, soporte técnico y soluciones IT para pymes en Sabana Norte.',
-        start_url: '/',
-        scope: '/',
-        display: 'standalone',
-        orientation: 'any',
-        background_color: '#0a0a0a',
-        theme_color: '#0066FF',
-        lang: 'es',
-        categories: ['business', 'productivity', 'utilities'],
-        icons: [
-          {
-            src: 'pwa-192x192.png',
-            sizes: '192x192',
-            type: 'image/png',
-          },
-          {
-            src: 'pwa-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any',
-          },
-          {
-            src: 'maskable-icon-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'maskable',
-          },
-        ],
-        // ✅ Screenshots requeridos para "Richer PWA Install UI" en Chrome
-        screenshots: [
-          {
-            src: 'screenshot-desktop.png',
-            sizes: '1280x800',
-            type: 'image/png',
-            form_factor: 'wide',
-            label: 'Sinnexys en escritorio',
-          },
-          {
-            src: 'screenshot-mobile.png',
-            sizes: '390x844',
-            type: 'image/png',
-            form_factor: 'narrow',
-            label: 'Sinnexys en móvil',
-          },
-        ],
-      },
-      workbox: {
-        // Asegura que el SW controle todas las rutas desde la raíz
-        navigateFallback: 'index.html',
-        navigateFallbackDenylist: [/^\/api\//],
-        runtimeCaching: [
-          // ─────────────────────────────────────────────────────────────────
-          // ESCRITURAS Supabase (POST / PATCH / DELETE)
-          // Estrategia: NetworkOnly + BackgroundSync para soporte offline.
-          // Si no hay red, la petición se encola y se reintenta hasta 24 h.
-          // ─────────────────────────────────────────────────────────────────
-          {
-            urlPattern: /^https:\/\/.*\.supabase\.co\/rest\/.*/i,
-            method: 'POST',
-            handler: 'NetworkOnly',
-            options: {
-              backgroundSync: {
-                name: 'supabase-write-queue',
-                options: {
-                  maxRetentionTime: 24 * 60, // 24 horas en minutos
-                },
-              },
-            },
-          },
-          {
-            urlPattern: /^https:\/\/.*\.supabase\.co\/rest\/.*/i,
-            method: 'PATCH',
-            handler: 'NetworkOnly',
-            options: {
-              backgroundSync: {
-                name: 'supabase-write-queue',
-                options: {
-                  maxRetentionTime: 24 * 60, // 24 horas en minutos
-                },
-              },
-            },
-          },
-          {
-            urlPattern: /^https:\/\/.*\.supabase\.co\/rest\/.*/i,
-            method: 'DELETE',
-            handler: 'NetworkOnly',
-            options: {
-              backgroundSync: {
-                name: 'supabase-write-queue',
-                options: {
-                  maxRetentionTime: 24 * 60, // 24 horas en minutos
-                },
-              },
-            },
-          },
-          // ─────────────────────────────────────────────────────────────────
-          // LECTURAS Supabase (GET) — NetworkFirst, sirve cache si no hay red
-          // ─────────────────────────────────────────────────────────────────
-          {
-            urlPattern: /^https:\/\/.*\.supabase\.co\/.*/i,
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'supabase-api-cache',
-              expiration: {
-                maxEntries: 50,
-                maxAgeSeconds: 60 * 60 * 24, // 24 h
-              },
-              networkTimeoutSeconds: 10,
-            },
-          },
-          {
-            // Google Fonts stylesheets
-            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
-            handler: 'StaleWhileRevalidate',
-            options: {
-              cacheName: 'google-fonts-stylesheets',
-            },
-          },
-          {
-            // Google Fonts files
-            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'google-fonts-webfonts',
-              expiration: {
-                maxEntries: 30,
-                maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
-              },
-            },
-          },
-          {
-            // Images (cacheFirst — rarely change)
-            urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|ico)$/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'images-cache',
-              expiration: {
-                maxEntries: 60,
-                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
-              },
-            },
-          },
-        ],
-      },
-    }),
   ],
   base: '/',
+
+  build: {
+    sourcemap: false,
+    chunkSizeWarningLimit: 500,
+
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-dom/client'],
+          'supabase': ['@supabase/supabase-js'],
+          'icons': ['lucide-react'],
+        }
+      }
+    }
+  }
 })

@@ -6,8 +6,6 @@
 export default function HeroStyles() {
     return (
         <style>{`
-      @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap');
-
       @keyframes float {
         0%, 100% { transform: translateY(0px) rotate(0deg); }
         50%       { transform: translateY(-18px) rotate(3deg); }

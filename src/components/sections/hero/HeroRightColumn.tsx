@@ -7,7 +7,7 @@
  *   - Badge flotante inferior derecho ("Disponible 24/7")
  */
 import { Sparkles } from 'lucide-react';
-import heroImg from '../../../assets/hero.png';
+import heroImg from '../../../assets/hero.avif';
 
 const FEATURE_ROWS = [
     {
@@ -90,7 +90,10 @@ export default function HeroRightColumn() {
                 <div style={{ borderRadius: 18, overflow: 'hidden', marginBottom: 24, position: 'relative' }}>
                     <img
                         src={heroImg}
-                        alt="Equipo tecnológico"
+                        alt="Equipo tecnológico de Sinnexys brindando soporte"
+                        width="460"
+                        height="260"
+                        fetchPriority="high"
                         style={{ width: '100%', height: 260, objectFit: 'cover', display: 'block' }}
                     />
                     {/* Gradiente inferior sobre imagen */}

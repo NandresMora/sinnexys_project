@@ -1,5 +1,5 @@
 import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
-import logo from '../../assets/logo.png';
+import logo from '../../assets/logo.avif';
 
 export default function Footer() {
   const scrollToSection = (id: string) => {
@@ -15,7 +15,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-8 mb-12">
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <img src={logo} alt="Sinnexys" className="h-10 w-auto" />
+              <img src={logo} alt="Sinnexys" width="120" height="40" className="h-10 w-auto" />
             </div>
             <p className="text-gray-400 mb-4">
               Soluciones tecnológicas para tu crecimiento
@@ -72,16 +72,16 @@ export default function Footer() {
           <div>
             <h4 className="font-bold mb-4 text-[#00D9FF]">Síguenos</h4>
             <div className="flex gap-4">
-              <a href="https://www.facebook.com/sinnexys" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#00D9FF] transition-colors">
+              <a href="https://www.facebook.com/sinnexys" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#00D9FF] transition-colors" aria-label="Síguenos en Facebook">
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#00D9FF] transition-colors">
+              <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#00D9FF] transition-colors" aria-label="Síguenos en Twitter">
                 <Twitter className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#00D9FF] transition-colors">
+              <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#00D9FF] transition-colors" aria-label="Síguenos en Instagram">
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#00D9FF] transition-colors">
+              <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#00D9FF] transition-colors" aria-label="Síguenos en LinkedIn">
                 <Linkedin className="w-5 h-5" />
               </a>
             </div>

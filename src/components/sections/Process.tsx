@@ -1,4 +1,5 @@
 import { MessageCircle, FileText, Zap } from 'lucide-react';
+import { WHATSAPP_URL } from '../../config/site';
 
 export default function Process() {
   const steps = [
@@ -71,7 +72,7 @@ export default function Process() {
 
         <div className="mt-16 text-center">
           <a
-            href="https://wa.me/573123602705"
+            href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-[#00D9FF] hover:bg-white text-[#0A1929] px-8 py-4 rounded-lg font-semibold transition-all hover:scale-105"

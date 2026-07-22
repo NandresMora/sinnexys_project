@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 
 // Componentes de Layout (estructura general de la página)
 import Navbar from './components/layout/Navbar';
@@ -18,6 +18,7 @@ const Contact = React.lazy(() => import('./components/sections/Contact'));
 
 // Componentes Comunes (elementos reutilizables)
 import WhatsAppButton from './components/common/WhatsAppButton';
+import LazySection from './components/common/LazySection';
 
 // Marcador de posición animado (Skeleton fallback) para secciones en carga diferida
 const SectionLoader = () => (
@@ -34,14 +35,27 @@ function App() {
     <div className="min-h-screen">
       <Navbar />
       <Hero />
-      <Suspense fallback={<SectionLoader />}>
+      {/* Cada sección se importa por separado solo cuando el usuario se
+          acerca a ella al hacer scroll (ver LazySection/useInView), en vez
+          de disparar los 6 imports de golpe apenas monta la página. */}
+      <LazySection fallback={<SectionLoader />} minHeight={900}>
         <Services />
+      </LazySection>
+      <LazySection fallback={<SectionLoader />} minHeight={500}>
         <Process />
+      </LazySection>
+      <LazySection fallback={<SectionLoader />} minHeight={700}>
         <Coverage />
+      </LazySection>
+      <LazySection fallback={<SectionLoader />} minHeight={500}>
         <About />
+      </LazySection>
+      <LazySection fallback={<SectionLoader />} minHeight={500}>
         <Testimonials />
+      </LazySection>
+      <LazySection fallback={<SectionLoader />} minHeight={700}>
         <Contact />
-      </Suspense>
+      </LazySection>
       <Footer />
       <WhatsAppButton />
       <Analytics />

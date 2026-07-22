@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { MessageCircle } from 'lucide-react';
+import { WHATSAPP_URL } from '../../config/site';
 
 export default function WhatsAppButton() {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <a
-      href="https://wa.me/573123602705"
+      href={WHATSAPP_URL}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Contactar por WhatsApp"

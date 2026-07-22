@@ -6,6 +6,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react'; // Iconos para el menú móvil
 import logo from '../../assets/logo.avif';
+import { WHATSAPP_URL } from '../../config/site';
 
 
 export default function Navbar() {
@@ -13,10 +14,18 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        setIsScrolled(window.scrollY > 20);
+        ticking = false;
+      });
     };
-    window.addEventListener('scroll', handleScroll);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -63,7 +72,7 @@ export default function Navbar() {
               Contacto
             </button>
             <a
-              href="https://wa.me/573123602705"
+              href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-[#0066FF] hover:bg-[#00D9FF] text-white px-6 py-2 rounded-lg transition-all hover:scale-105"
@@ -118,7 +127,7 @@ export default function Navbar() {
               Contacto
             </button>
             <a
-              href="https://wa.me/573123602705"
+              href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="block w-full text-center px-3 py-2 bg-[#0066FF] hover:bg-[#00D9FF] text-white rounded-md transition-colors"

@@ -49,7 +49,7 @@ export default function HeroLeftColumn({ onScrollTo }: Props) {
             <div className="animate-fade-up-2">
                 <h1
                     style={{
-                        fontFamily: "'Sora', sans-serif",
+                        fontFamily: "'Sora', 'Inter', sans-serif",
                         fontSize: 'clamp(2.8rem, 5vw, 4.2rem)',
                         fontWeight: 800,
                         lineHeight: 1.08,
@@ -63,7 +63,7 @@ export default function HeroLeftColumn({ onScrollTo }: Props) {
 
                 <h2
                     style={{
-                        fontFamily: "'Sora', sans-serif",
+                        fontFamily: "'Sora', 'Inter', sans-serif",
                         fontSize: 'clamp(1.5rem, 3vw, 2.2rem)',
                         fontWeight: 600,
                         lineHeight: 1.2,

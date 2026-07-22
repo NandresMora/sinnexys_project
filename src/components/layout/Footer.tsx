@@ -1,5 +1,20 @@
 import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
 import logo from '../../assets/logo.avif';
+import { SOCIAL_LINKS, LEGAL_LINKS } from '../../config/site';
+
+const SOCIAL_ICONS: Record<string, typeof Facebook> = {
+  facebook: Facebook,
+  twitter: Twitter,
+  instagram: Instagram,
+  linkedin: Linkedin,
+};
+
+const SOCIAL_LABELS: Record<string, string> = {
+  facebook: 'Facebook',
+  twitter: 'Twitter',
+  instagram: 'Instagram',
+  linkedin: 'LinkedIn',
+};
 
 export default function Footer() {
   const scrollToSection = (id: string) => {
@@ -72,18 +87,26 @@ export default function Footer() {
           <div>
             <h4 className="font-bold mb-4 text-[#00D9FF]">Síguenos</h4>
             <div className="flex gap-4">
-              <a href="https://www.facebook.com/sinnexys" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#00D9FF] transition-colors" aria-label="Síguenos en Facebook">
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#00D9FF] transition-colors" aria-label="Síguenos en Twitter">
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#00D9FF] transition-colors" aria-label="Síguenos en Instagram">
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#00D9FF] transition-colors" aria-label="Síguenos en LinkedIn">
-                <Linkedin className="w-5 h-5" />
-              </a>
+              {/* Solo se renderizan las redes con URL real configurada en
+                  src/config/site.ts. Un ícono que lleva a "#" es un enlace
+                  roto — se oculta hasta que exista la cuenta real. */}
+              {Object.entries(SOCIAL_LINKS)
+                .filter(([, url]) => url !== null)
+                .map(([key, url]) => {
+                  const Icon = SOCIAL_ICONS[key];
+                  return (
+                    <a
+                      key={key}
+                      href={url as string}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#00D9FF] transition-colors"
+                      aria-label={`Síguenos en ${SOCIAL_LABELS[key]}`}
+                    >
+                      <Icon className="w-5 h-5" />
+                    </a>
+                  );
+                })}
             </div>
           </div>
         </div>
@@ -94,12 +117,23 @@ export default function Footer() {
               © 2026 Sinnexys. Todos los derechos reservados.
             </p>
             <div className="flex gap-6">
-              <a href="#" className="text-gray-400 hover:text-[#00D9FF] text-sm transition-colors">
-                Política de Privacidad
-              </a>
-              <a href="#" className="text-gray-400 hover:text-[#00D9FF] text-sm transition-colors">
-                Términos y Condiciones
-              </a>
+              {/* Sin contenido legal real todavía (ver src/config/site.ts).
+                  Se muestran como texto plano en vez de enlaces rotos a "#"
+                  hasta que el negocio provea el contenido correspondiente. */}
+              {LEGAL_LINKS.privacy ? (
+                <a href={LEGAL_LINKS.privacy} className="text-gray-400 hover:text-[#00D9FF] text-sm transition-colors">
+                  Política de Privacidad
+                </a>
+              ) : (
+                <span className="text-gray-600 text-sm cursor-default">Política de Privacidad</span>
+              )}
+              {LEGAL_LINKS.terms ? (
+                <a href={LEGAL_LINKS.terms} className="text-gray-400 hover:text-[#00D9FF] text-sm transition-colors">
+                  Términos y Condiciones
+                </a>
+              ) : (
+                <span className="text-gray-600 text-sm cursor-default">Términos y Condiciones</span>
+              )}
             </div>
           </div>
         </div>

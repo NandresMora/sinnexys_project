@@ -23,7 +23,14 @@ export default function Hero() {
   return (
     <section
       style={{
-        fontFamily: "'DM Sans', 'Sora', sans-serif",
+        // 'DM Sans' y 'Sora' no están cargadas en el proyecto (no hay
+        // @fontsource/dm-sans ni @fontsource/sora instalados, ni un <link>
+        // a Google Fonts). Sin este fallback, el navegador ignora ambos
+        // nombres y cae al sans-serif genérico del sistema, en vez de usar
+        // 'Inter' — la fuente que sí está cargada y usa el resto del sitio.
+        // Si más adelante se quiere la tipografía original de diseño, hay
+        // que instalar esos paquetes de fuente explícitamente.
+        fontFamily: "'DM Sans', 'Sora', 'Inter', sans-serif",
         background: 'linear-gradient(135deg, #060E1A 0%, #0A1929 50%, #071428 100%)',
         minHeight: '100vh',
         position: 'relative',

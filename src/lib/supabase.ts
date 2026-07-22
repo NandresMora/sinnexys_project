@@ -97,7 +97,8 @@ export async function flushOfflineQueue(): Promise<void> {
       }
 
       // Extraer metadato interno antes de enviar
-      const { _queuedAt: _ignored, ...payload } = item
+      const payload: LeadPayload = { ...item }
+      delete (payload as Partial<QueuedLead>)._queuedAt
 
       try {
         const { error } = await supabase.from('leads').insert([payload])

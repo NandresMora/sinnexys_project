@@ -1,5 +1,6 @@
-import { useState, FormEvent } from 'react';
+import { useState, useRef, FormEvent } from 'react';
 import { Mail, MapPin, Phone, Send, User, AtSign, MessageSquare } from 'lucide-react';
+import { WHATSAPP_URL, WHATSAPP_DISPLAY, PHONE_TEL_URL, CONTACT_EMAIL, BUSINESS_REGION, BUSINESS_COUNTRY, BUSINESS_HOURS } from '../../config/site';
 //import { submitLead } from '../../lib/supabase';
 
 
@@ -21,31 +22,52 @@ export default function Contact() {
     email: '',
     phone: '',
     service: '',
-    message: ''
+    message: '',
+    // Honeypot: campo invisible para humanos, pero los bots de spam
+    // suelen rellenar todos los inputs que encuentran. Si llega con
+    // contenido, se descarta el envío sin avisarle al bot.
+    website: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'queued' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
+  // Momento en que se montó el formulario. Un envío en menos de 2s
+  // es casi siempre un bot rellenando el formulario automáticamente,
+  // no una persona real leyendo y escribiendo.
+  const formLoadedAt = useRef(Date.now());
+
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    // Anti-spam silencioso: si el honeypot tiene contenido, o si el
+    // formulario se envió sospechosamente rápido, se simula un envío
+    // exitoso sin tocar Supabase — así el bot no aprende a evadir el filtro.
+    const submittedTooFast = Date.now() - formLoadedAt.current < 2000;
+    if (formData.website.trim() !== '' || submittedTooFast) {
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', phone: '', service: '', message: '', website: '' });
+      setTimeout(() => setSubmitStatus('idle'), 6000);
+      return;
+    }
+
     setIsSubmitting(true);
 
     const { submitLead } = await import('../../lib/supabase');
 
     const result = await submitLead({
-      nombre: formData.name,
-      email: formData.email,
+      nombre: formData.name.trim(),
+      email: formData.email.trim(),
       telefono: formData.phone ? Number(formData.phone) : null,
       servicio: formData.service || null,
-      mensaje: formData.message,
+      mensaje: formData.message.trim(),
     });
 
     // ✅ Esta parte faltaba — no la elimines
     if (result.ok) {
       setSubmitStatus(result.queued ? 'queued' : 'success');
-      setFormData({ name: '', email: '', phone: '', service: '', message: '' });
+      setFormData({ name: '', email: '', phone: '', service: '', message: '', website: '' });
     } else {
       setErrorMessage(result.message);
       setSubmitStatus('error');
@@ -90,11 +112,11 @@ export default function Contact() {
                   <div>
                     <h4 className="text-white font-semibold mb-1">WhatsApp / Llamadas</h4>
                     <div className="flex flex-col">
-                      <a href="https://wa.me/573123602705" className="text-[#00D9FF] hover:underline">
-                        WhatsApp: +57 312 360 2705
+                      <a href={WHATSAPP_URL} className="text-[#00D9FF] hover:underline">
+                        WhatsApp: {WHATSAPP_DISPLAY}
                       </a>
-                      <a href="tel:+573123602705" className="text-white hover:text-[#00D9FF] transition-colors mt-1 font-medium">
-                        Llamar ahora: +57 (312) 360-2705
+                      <a href={PHONE_TEL_URL} className="text-white hover:text-[#00D9FF] transition-colors mt-1 font-medium">
+                        Llamar ahora: {WHATSAPP_DISPLAY}
                       </a>
                     </div>
                   </div>
@@ -106,8 +128,8 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="text-white font-semibold mb-1">Email</h4>
-                    <a href="mailto:contactosinnexys@gmail.com" className="text-[#00D9FF] hover:underline">
-                      contactosinnexys@gmail.com
+                    <a href={`mailto:${CONTACT_EMAIL}`} className="text-[#00D9FF] hover:underline">
+                      {CONTACT_EMAIL}
                     </a>
                   </div>
                 </div>
@@ -119,8 +141,8 @@ export default function Contact() {
                   <div>
                     <h4 className="text-white font-semibold mb-1">Ubicación</h4>
                     <p className="text-gray-300">
-                      Sabana Norte, Cundinamarca<br />
-                      Colombia
+                      {BUSINESS_REGION}<br />
+                      {BUSINESS_COUNTRY}
                     </p>
                   </div>
                 </div>
@@ -132,20 +154,37 @@ export default function Contact() {
                 Horario de atención
               </h3>
               <div className="space-y-3 text-gray-300">
-                <div className="flex items-center justify-between bg-white/5 rounded-lg px-4 py-3">
-                  <span className="font-semibold text-white">Lunes - Viernes</span>
-                  <span className="text-[#00D9FF] font-medium">8:00 AM - 6:00 PM</span>
-                </div>
-                <div className="flex items-center justify-between bg-white/5 rounded-lg px-4 py-3">
-                  <span className="font-semibold text-white">Sábados y Domingos</span>
-                  <span className="text-[#00D9FF] font-medium">9:00 AM - 5:00 PM</span>
-                </div>
+                {BUSINESS_HOURS.map((schedule) => (
+                  <div key={schedule.days} className="flex items-center justify-between bg-white/5 rounded-lg px-4 py-3">
+                    <span className="font-semibold text-white">{schedule.days}</span>
+                    <span className="text-[#00D9FF] font-medium">{schedule.hours}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
 
           <div>
             <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-2xl p-8">
+              {/* Honeypot anti-spam: invisible y fuera del flujo de tabulación.
+                  Los bots de formularios suelen rellenar cualquier input que
+                  encuentren en el DOM; las personas nunca la ven ni la tocan. */}
+              <div
+                aria-hidden="true"
+                style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', overflow: 'hidden' }}
+              >
+                <label htmlFor="website">No llenar este campo</label>
+                <input
+                  type="text"
+                  id="website"
+                  name="website"
+                  value={formData.website}
+                  onChange={handleChange}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
               {/* Nombre */}
               <div className="mb-6">
                 <label htmlFor="name" className="block text-[#0A1929] font-semibold mb-2">

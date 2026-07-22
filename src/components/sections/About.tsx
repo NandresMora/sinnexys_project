@@ -1,4 +1,4 @@
-import { Shield, DollarSign, Users, Zap, TrendingUp, Award } from 'lucide-react';
+import { Shield, DollarSign, Users, Zap, Award } from 'lucide-react';
 
 export default function About() {
   const stats = [

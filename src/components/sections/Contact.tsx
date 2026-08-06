@@ -1,6 +1,7 @@
 import { useState, useRef, FormEvent } from 'react';
 import { Mail, MapPin, Phone, Send, User, AtSign, MessageSquare } from 'lucide-react';
 import { WHATSAPP_URL, WHATSAPP_DISPLAY, PHONE_TEL_URL, CONTACT_EMAIL, BUSINESS_REGION, BUSINESS_COUNTRY, BUSINESS_HOURS } from '../../config/site';
+import PrivacyModal from '../common/PrivacyModal';
 //import { submitLead } from '../../lib/supabase';
 
 
@@ -31,6 +32,8 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'queued' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
+  const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
 
   // Momento en que se montó el formulario. Un envío en menos de 2s
   // es casi siempre un bot rellenando el formulario automáticamente,
@@ -294,9 +297,37 @@ export default function Contact() {
                 </div>
               </div>
 
+              {/* Privacidad */}
+              <div className="mb-6 flex items-start">
+                <div className="flex items-center h-5 mt-1">
+                  <input
+                    id="privacy"
+                    name="privacy"
+                    type="checkbox"
+                    checked={acceptedPrivacy}
+                    onChange={(e) => setAcceptedPrivacy(e.target.checked)}
+                    required
+                    className="w-4 h-4 text-[#0066FF] border-gray-300 rounded focus:ring-[#0066FF] cursor-pointer"
+                  />
+                </div>
+                <div className="ml-3 text-sm">
+                  <label htmlFor="privacy" className="font-medium text-gray-700 cursor-pointer">
+                    He leído y acepto la{' '}
+                    <button 
+                      type="button" 
+                      onClick={() => setIsPrivacyModalOpen(true)}
+                      className="text-[#0066FF] hover:underline font-semibold focus:outline-none"
+                    >
+                      Política de Privacidad
+                    </button>{' '}
+                    y autorizo a SINNEXYS a tratar mis datos personales para responder mi solicitud de conformidad con la Ley 1581 de 2012.
+                  </label>
+                </div>
+              </div>
+
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !acceptedPrivacy}
                 className="w-full bg-gradient-to-r from-[#0066FF] to-[#00D9FF] text-white px-8 py-4 rounded-lg font-bold hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {isSubmitting ? 'Enviando...' : 'Enviar consulta'}
@@ -332,6 +363,7 @@ export default function Contact() {
           </div>
         </div>
       </div>
+      <PrivacyModal isOpen={isPrivacyModalOpen} onClose={() => setIsPrivacyModalOpen(false)} />
     </section>
   );
 }

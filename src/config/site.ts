@@ -51,6 +51,6 @@ export const SOCIAL_LINKS: Record<string, string | null> = {
 // envía nombre, correo, teléfono y mensaje a Supabase).
 
 export const LEGAL_LINKS: Record<string, string | null> = {
-  privacy: null,
+  privacy: '/src/common/PrivacyModal.tsx', 
   terms: null,
 };

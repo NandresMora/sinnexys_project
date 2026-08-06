@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
 import logo from '../../assets/logo.avif';
 import { SOCIAL_LINKS, LEGAL_LINKS } from '../../config/site';
+import PrivacyModal from '../common/PrivacyModal';
 
 const SOCIAL_ICONS: Record<string, typeof Facebook> = {
   facebook: Facebook,
@@ -17,6 +19,8 @@ const SOCIAL_LABELS: Record<string, string> = {
 };
 
 export default function Footer() {
+  const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -121,9 +125,13 @@ export default function Footer() {
                   Se muestran como texto plano en vez de enlaces rotos a "#"
                   hasta que el negocio provea el contenido correspondiente. */}
               {LEGAL_LINKS.privacy ? (
-                <a href={LEGAL_LINKS.privacy} className="text-gray-400 hover:text-[#00D9FF] text-sm transition-colors">
-                  Política de Privacidad
-                </a>
+                <button 
+                      type="button" 
+                      onClick={() => setIsPrivacyModalOpen(true)}
+                      className="text-[#0066FF] hover:underline font-semibold focus:outline-none"
+                    >
+                      Política de Privacidad
+                    </button>
               ) : (
                 <span className="text-gray-600 text-sm cursor-default">Política de Privacidad</span>
               )}
@@ -138,6 +146,10 @@ export default function Footer() {
           </div>
         </div>
       </div>
+      <PrivacyModal 
+        isOpen={isPrivacyModalOpen} 
+        onClose={() => setIsPrivacyModalOpen(false)} 
+      />
     </footer>
   );
 }

@@ -31,7 +31,10 @@
   <meta property="og:title" content="Sinnexys - Soluciones IT en Sabana Norte | Desarrollo Web y Soporte Técnico" />
   <meta property="og:description"
     content="Servicios de desarrollo web, mantenimiento de PC y soluciones IT para pymes en Sabana Norte. Tecnología profesional a precios competitivos." />
-  <meta property="og:image" content="https://sinnexys.dev/og-image.png" />
+  <meta property="og:image" content="https://sinnexys.dev/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:url" content="https://sinnexys.dev" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="es_CO" />
@@ -40,10 +43,57 @@
   <meta name="twitter:title" content="Sinnexys - Soluciones IT en Sabana Norte" />
   <meta name="twitter:description"
     content="Servicios de desarrollo web, mantenimiento de PC y soluciones IT para pymes en Sabana Norte." />
-  <meta name="twitter:image" content="https://sinnexys.dev/og-image.png" />
+  <meta name="twitter:image" content="https://sinnexys.dev/og-image.jpg" />
 
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0066FF" />
+
+  <!-- Structured Data (JSON-LD) — permite que Google muestre horario,
+       teléfono y zona de servicio directamente en resultados de búsqueda
+       locales. No hay dirección exacta de calle porque el servicio es
+       mayormente móvil/remoto; se declara a nivel de región y municipios,
+       que es lo que realmente existe en el contenido del sitio. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Sinnexys",
+    "image": "https://sinnexys.dev/og-image.jpg",
+    "url": "https://sinnexys.dev",
+    "telephone": "+573123602705",
+    "email": "contactosinnexys@gmail.com",
+    "description": "Servicios de desarrollo web, mantenimiento de PC y soluciones IT para pymes en Sabana Norte, Cundinamarca. Soporte remoto a nivel nacional.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "Cundinamarca",
+      "addressCountry": "CO"
+    },
+    "areaServed": [
+      { "@type": "City", "name": "Chía" },
+      { "@type": "City", "name": "Cajicá" },
+      { "@type": "City", "name": "Zipaquirá" },
+      { "@type": "City", "name": "Sopó" },
+      { "@type": "Country", "name": "Colombia" }
+    ],
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "08:00",
+        "closes": "18:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Saturday", "Sunday"],
+        "opens": "09:00",
+        "closes": "17:00"
+      }
+    ],
+    "sameAs": [
+      "https://www.facebook.com/sinnexys"
+    ]
+  }
+  </script>
 
   <!-- Google tag (gtag.js) - Deferido para optimizar el rendimiento en Lighthouse -->
   <script>
@@ -61,14 +111,14 @@
       }, 2000); // Retraso de 2 segundos tras el evento load del navegador
     });
   </script>
-  <script type="module" crossorigin src="/assets/index-B4kxJveA.js"></script>
+  <script type="module" crossorigin src="/assets/index-DF05M-jV.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/react-vendor-B9C_apPG.js">
   <link rel="modulepreload" crossorigin href="/assets/icons-Bz1FBUzD.js">
-  <link rel="stylesheet" crossorigin href="/assets/index-Bs1Oa5Jf.css">
+  <link rel="stylesheet" crossorigin href="/assets/index-CxlBhPxw.css">
 </head>
 
 <body>
-  <div id="root"></div>
+  <div id="root"></div>
 </body>
 
 </html>

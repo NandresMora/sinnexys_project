@@ -1,7 +1,11 @@
-import { Suspense, type ReactNode } from 'react';
+//importes de estados
+import { Suspense, useState, useEffect, type ReactNode } from 'react';
 import { useInView } from '../../hooks/useInView';
 
+
 interface LazySectionProps {
+  id: string;
+  delay?: number;
   children: ReactNode;
   fallback: ReactNode;
   /** Alto reservado mientras la sección no ha sido vista, para evitar
@@ -23,12 +27,31 @@ interface LazySectionProps {
  * viewport. En conexiones lentas o cuando el usuario no hace scroll
  * hasta el final, esto ahorra descargas de red innecesarias.
  */
-export default function LazySection({ children, fallback, minHeight = 400 }: LazySectionProps) {
+export default function LazySection({ id, delay, children, fallback, minHeight = 400 }: LazySectionProps) {
   const { ref, isInView } = useInView<HTMLDivElement>();
 
+  //estado para forzar tiempo de carga
+  const [forceLoad, setForceLoad] = useState(false);
+
+  //useEfect para forzar tiempo de carga
+  useEffect(() => {
+    if (!delay || isInView || forceLoad) return;
+
+    const timer = setTimeout(() => {
+      setForceLoad(true);
+    }, delay);
+    return () => clearTimeout(timer);
+  }, [delay, isInView, forceLoad]);
+
+  //renderiza su el usuario hizo scroll o si el tiempo se agoto
+  const shouldRender = isInView || forceLoad;
+
+
+
   return (
-    <div ref={ref} style={!isInView ? { minHeight } : undefined}>
-      {isInView && <Suspense fallback={fallback}>{children}</Suspense>}
+    // EL ID VA AQUÍ: Este div siempre existe en el DOM, así el Navbar funciona desde el inicio
+    <div id={id} ref={ref} style={!shouldRender ? { minHeight } : undefined} className="w-full">
+      {shouldRender && <Suspense fallback={fallback}>{children}</Suspense>}
     </div>
   );
 }

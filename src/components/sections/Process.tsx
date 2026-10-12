@@ -24,7 +24,7 @@ export default function Process() {
   ];
 
   return (
-    <section id="proceso" className="py-20 bg-gradient-to-br from-[#0A1929] to-[#0066FF] relative overflow-hidden">
+    <section className="py-20 bg-gradient-to-br from-[#0A1929] to-[#0066FF] relative overflow-hidden">
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-10 left-20 w-64 h-64 bg-[#00D9FF] rounded-full blur-3xl"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#0066FF] rounded-full blur-3xl"></div>

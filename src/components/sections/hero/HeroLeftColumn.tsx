@@ -22,28 +22,7 @@ const SERVICE_PILLS = [
 export default function HeroLeftColumn({ onScrollTo }: Props) {
     return (
         <div>
-            {/* Badge */}
-            <div className="animate-fade-up-1" style={{ marginBottom: 28 }}>
-                <span
-                    style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: 8,
-                        background: 'rgba(0,217,255,0.08)',
-                        border: '1px solid rgba(0,217,255,0.2)',
-                        borderRadius: 999,
-                        padding: '8px 18px',
-                        fontSize: '0.8rem',
-                        color: '#00D9FF',
-                        fontWeight: 500,
-                        letterSpacing: '0.04em',
-                        textTransform: 'uppercase',
-                    }}
-                >
-                    <Sparkles size={13} />
-                    Soluciones tecnológicas profesionales
-                </span>
-            </div>
+
 
             {/* Headline */}
             <div className="animate-fade-up-2">

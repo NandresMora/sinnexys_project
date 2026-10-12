@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy } from 'react';
 
 // Componentes de Layout (estructura general de la página)
 import Navbar from './components/layout/Navbar';
@@ -9,9 +9,9 @@ import { Analytics } from '@vercel/analytics/react';
 import Hero from './components/sections/Hero';
 
 // Componentes de Secciones - Cargados Diferidamente (Code Splitting)
-const Services = React.lazy(() => import('./components/sections/Services'));
-const Process = React.lazy(() => import('./components/sections/Process'));
-const Coverage = React.lazy(() => import('./components/sections/Coverage'));
+const Services = lazy(() => import('./components/sections/Services'));
+const Process = lazy(() => import('./components/sections/Process'));
+const Coverage = lazy(() => import('./components/sections/Coverage'));
 const About = React.lazy(() => import('./components/sections/About'));
 const Testimonials = React.lazy(() => import('./components/sections/Testimonials'));
 const Contact = React.lazy(() => import('./components/sections/Contact'));
@@ -30,37 +30,46 @@ const SectionLoader = () => (
   </div>
 );
 
-function App() {
+export default function App() {
   return (
     <div className="min-h-screen">
       <Navbar />
       <Hero />
-      {/* Cada sección se importa por separado solo cuando el usuario se
-          acerca a ella al hacer scroll (ver LazySection/useInView), en vez
-          de disparar los 6 imports de golpe apenas monta la página. */}
-      <LazySection fallback={<SectionLoader />} minHeight={900}>
+
+      {/* CAMBIO AQUÍ: id="servicios" en lugar de "services" */}
+      <LazySection id="servicios" delay={1000} fallback={<SectionLoader />} minHeight={900}>
         <Services />
       </LazySection>
-      <LazySection fallback={<SectionLoader />} minHeight={500}>
+
+      {/* CAMBIO AQUÍ: id="proceso" en lugar de "process" */}
+      <LazySection id="proceso" delay={1400} fallback={<SectionLoader />} minHeight={500}>
         <Process />
       </LazySection>
-      <LazySection fallback={<SectionLoader />} minHeight={700}>
+
+      {/* CAMBIO AQUÍ: id="cobertura" en lugar de "coverage" */}
+      <LazySection id="cobertura" delay={1800} fallback={<SectionLoader />} minHeight={700}>
         <Coverage />
       </LazySection>
-      <LazySection fallback={<SectionLoader />} minHeight={500}>
+
+      {/* CAMBIO AQUÍ: id="nosotros" en lugar de "about" */}
+      <LazySection id="nosotros" delay={2200} fallback={<SectionLoader />} minHeight={500}>
         <About />
       </LazySection>
-      <LazySection fallback={<SectionLoader />} minHeight={500}>
+
+      {/* Testimonials no está en tu navbar, puedes dejarle el ID que quieras o quitarlo */}
+      <LazySection id="testimonios" delay={2600} fallback={<SectionLoader />} minHeight={500}>
         <Testimonials />
       </LazySection>
-      <LazySection fallback={<SectionLoader />} minHeight={700}>
+
+      {/* CAMBIO AQUÍ: id="contacto" en lugar de "contact" */}
+      <LazySection id="contacto" delay={3000} fallback={<SectionLoader />} minHeight={700}>
         <Contact />
       </LazySection>
+
       <Footer />
       <WhatsAppButton />
       <Analytics />
     </div>
   );
 }
-
-export default App;
+// Quité el "export default App;" de aquí abajo porque ya lo estás exportando en la función principal

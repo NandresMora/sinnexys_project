@@ -38,7 +38,7 @@ export const BUSINESS_HOURS = [
 // enlazar a "#" (un enlace roto le resta credibilidad a un sitio "profesional").
 
 export const SOCIAL_LINKS: Record<string, string | null> = {
-  facebook: 'https://www.facebook.com/sinnexys',
+  facebook: 'https://web.facebook.com/profile.php?id=61593477464610',
   twitter: null, // TODO: agregar cuando exista la cuenta oficial
   instagram: null, // TODO: agregar cuando exista la cuenta oficial
   linkedin: null, // TODO: agregar cuando exista la cuenta oficial
@@ -51,6 +51,6 @@ export const SOCIAL_LINKS: Record<string, string | null> = {
 // envía nombre, correo, teléfono y mensaje a Supabase).
 
 export const LEGAL_LINKS: Record<string, string | null> = {
-  privacy: '/src/common/PrivacyModal.tsx', 
+  privacy: '/src/common/PrivacyModal.tsx',
   terms: null,
 };

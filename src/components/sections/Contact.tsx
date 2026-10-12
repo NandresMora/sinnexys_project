@@ -89,7 +89,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contacto" className="py-20 bg-gradient-to-br from-[#0A1929] to-[#0066FF]">
+    <section className="py-20 bg-gradient-to-br from-[#0A1929] to-[#0066FF]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
@@ -313,8 +313,8 @@ export default function Contact() {
                 <div className="ml-3 text-sm">
                   <label htmlFor="privacy" className="font-medium text-gray-700 cursor-pointer">
                     He leído y acepto la{' '}
-                    <button 
-                      type="button" 
+                    <button
+                      type="button"
                       onClick={() => setIsPrivacyModalOpen(true)}
                       className="text-[#0066FF] hover:underline font-semibold focus:outline-none"
                     >

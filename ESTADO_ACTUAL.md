@@ -7,7 +7,6 @@ A continuación se detalla el análisis exhaustivo del código fuente del proyec
 ### **Hero (`Hero.tsx`, `HeroLeftColumn.tsx`, `HeroRightColumn.tsx`)**
 - **Estructura**: Dividida en dos columnas principales superpuestas sobre un fondo decorativo y anillos giratorios.
 - **Textos Clave**:
-  - Badge: "✨ Soluciones tecnológicas profesionales"
   - Título Principal: "Sinnexys"
   - Subtítulo Shimmer: "Soluciones que impulsan tu crecimiento"
   - Descripción: "Transforma tu pyme con soluciones IT integrales: desarrollo web profesional, soporte técnico especializado y tecnología a tu medida."
@@ -76,7 +75,7 @@ Estructurado en un grid de tarjetas con acordeones interactivos ("Ver opciones" 
 
 ### **Footer (`Footer.tsx`)**
 - Incorpora el mismo comportamiento de scroll suave para sus enlaces a las secciones del sitio.
-- **Redes Sociales**: Facebook, Twitter, Instagram y LinkedIn (el de Facebook redirige a `https://www.facebook.com/sinnexys`, los demás están vacíos `#`).
+- **Redes Sociales**: Facebook, Twitter, Instagram y LinkedIn (el de Facebook redirige a `https://web.facebook.com/profile.php?id=61593477464610`, los demás están vacíos `#`).
 
 ### **Botón de WhatsApp (`WhatsAppButton.tsx`)**
 - Botón flotante fijo en la esquina inferior derecha (`fixed bottom-6 right-6`).

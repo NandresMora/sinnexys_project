@@ -11,7 +11,7 @@ import { MapPin, Wifi, Clock, ShieldCheck } from 'lucide-react';
 
 export default function Coverage() {
   return (
-    <section id="cobertura" className="py-20 bg-[#F0F4F8] relative overflow-hidden">
+    <section id="coverage" className="py-20 bg-[#F0F4F8] relative overflow-hidden">
       {/* Brillo sutil de fondo */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-[#0066FF] rounded-full blur-[160px] opacity-[0.04]"></div>
 

@@ -2,6 +2,7 @@ import { useState, useRef, FormEvent } from 'react';
 import { Mail, MapPin, Phone, Send, User, AtSign, MessageSquare } from 'lucide-react';
 import { WHATSAPP_URL, WHATSAPP_DISPLAY, PHONE_TEL_URL, CONTACT_EMAIL, BUSINESS_REGION, BUSINESS_COUNTRY, BUSINESS_HOURS } from '../../config/site';
 import PrivacyModal from '../common/PrivacyModal';
+import TermsModal from '../common/TermsModal';
 //import { submitLead } from '../../lib/supabase';
 
 
@@ -33,6 +34,7 @@ export default function Contact() {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'queued' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
+  const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
   const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
 
   // Momento en que se montó el formulario. Un envío en menos de 2s
@@ -320,7 +322,15 @@ export default function Contact() {
                     >
                       Política de Privacidad
                     </button>{' '}
-                    y autorizo a SINNEXYS a tratar mis datos personales para responder mi solicitud de conformidad con la Ley 1581 de 2012.
+                    y los{' '}
+                    <button
+                      type="button"
+                      onClick={() => setIsTermsModalOpen(true)}
+                      className="text-[#0066FF] hover:underline font-semibold focus:outline-none"
+                    >
+                      Términos y Condiciones
+                    </button>
+                    , y autorizo a SINNEXYS a tratar mis datos personales para responder mi solicitud de conformidad con la Ley 1581 de 2012.
                   </label>
                 </div>
               </div>
@@ -364,6 +374,7 @@ export default function Contact() {
         </div>
       </div>
       <PrivacyModal isOpen={isPrivacyModalOpen} onClose={() => setIsPrivacyModalOpen(false)} />
+      <TermsModal isOpen={isTermsModalOpen} onClose={() => setIsTermsModalOpen(false)} />
     </section>
   );
 }

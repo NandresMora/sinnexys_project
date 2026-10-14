@@ -3,6 +3,7 @@ import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
 import logo from '../../assets/logo.avif';
 import { SOCIAL_LINKS, LEGAL_LINKS } from '../../config/site';
 import PrivacyModal from '../common/PrivacyModal';
+import TermsModal from '../common/TermsModal';
 
 const SOCIAL_ICONS: Record<string, typeof Facebook> = {
   facebook: Facebook,
@@ -20,6 +21,7 @@ const SOCIAL_LABELS: Record<string, string> = {
 
 export default function Footer() {
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
+  const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -120,25 +122,26 @@ export default function Footer() {
             <p className="text-gray-400 text-sm mb-4 md:mb-0">
               © 2026 Sinnexys. Todos los derechos reservados.
             </p>
-            <div className="flex gap-6">
-              {/* Sin contenido legal real todavía (ver src/config/site.ts).
-                  Se muestran como texto plano en vez de enlaces rotos a "#"
-                  hasta que el negocio provea el contenido correspondiente. */}
+            <div className="flex flex-wrap gap-4 sm:gap-6">
               {LEGAL_LINKS.privacy ? (
                 <button 
-                      type="button" 
-                      onClick={() => setIsPrivacyModalOpen(true)}
-                      className="text-[#0066FF] hover:underline font-semibold focus:outline-none"
-                    >
-                      Política de Privacidad
-                    </button>
+                  type="button" 
+                  onClick={() => setIsPrivacyModalOpen(true)}
+                  className="text-gray-400 hover:text-[#00D9FF] text-sm transition-colors focus:outline-none focus:underline"
+                >
+                  Política de Privacidad
+                </button>
               ) : (
                 <span className="text-gray-600 text-sm cursor-default">Política de Privacidad</span>
               )}
               {LEGAL_LINKS.terms ? (
-                <a href={LEGAL_LINKS.terms} className="text-gray-400 hover:text-[#00D9FF] text-sm transition-colors">
+                <button 
+                  type="button" 
+                  onClick={() => setIsTermsModalOpen(true)}
+                  className="text-gray-400 hover:text-[#00D9FF] text-sm transition-colors focus:outline-none focus:underline"
+                >
                   Términos y Condiciones
-                </a>
+                </button>
               ) : (
                 <span className="text-gray-600 text-sm cursor-default">Términos y Condiciones</span>
               )}
@@ -149,6 +152,10 @@ export default function Footer() {
       <PrivacyModal 
         isOpen={isPrivacyModalOpen} 
         onClose={() => setIsPrivacyModalOpen(false)} 
+      />
+      <TermsModal 
+        isOpen={isTermsModalOpen} 
+        onClose={() => setIsTermsModalOpen(false)} 
       />
     </footer>
   );

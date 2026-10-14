@@ -1,4 +1,5 @@
-import { X } from 'lucide-react';
+import { useEffect } from 'react';
+import { X, Shield } from 'lucide-react';
 
 interface PrivacyModalProps {
   isOpen: boolean;
@@ -6,16 +7,50 @@ interface PrivacyModalProps {
 }
 
 export default function PrivacyModal({ isOpen, onClose }: PrivacyModalProps) {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="privacy-modal-title"
+    >
       <div 
         className="relative w-full max-w-3xl max-h-[90vh] bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between p-6 border-b border-gray-100">
-          <h2 className="text-2xl font-bold text-[#0A1929]">Política de Privacidad</h2>
+        <div className="flex items-center justify-between p-6 border-b border-gray-100 bg-white">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-[#0066FF]">
+              <Shield className="w-5 h-5" />
+            </div>
+            <div>
+              <h2 id="privacy-modal-title" className="text-xl sm:text-2xl font-bold text-[#0A1929]">
+                Política de Privacidad
+              </h2>
+              <p className="text-xs text-gray-500 font-medium">
+                SINNEXYS – Servicios IT y Soluciones Digitales
+              </p>
+            </div>
+          </div>
           <button 
             onClick={onClose}
             className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[#0066FF]"

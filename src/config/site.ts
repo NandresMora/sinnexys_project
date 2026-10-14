@@ -45,12 +45,10 @@ export const SOCIAL_LINKS: Record<string, string | null> = {
 };
 
 // ── Páginas legales ──────────────────────────────────────────────────────────
-// También en null a propósito: el contenido de Política de Privacidad y
-// Términos y Condiciones no se puede inventar, debe redactarlo el negocio
-// (o un abogado) según los datos reales que se recopilan (el formulario
-// envía nombre, correo, teléfono y mensaje a Supabase).
+// Las páginas legales se gestionan mediante modales accesibles desde el footer
+// y el formulario de contacto (cumpliendo con Ley 1581 de 2012 y Ley 1480 de 2011).
 
 export const LEGAL_LINKS: Record<string, string | null> = {
-  privacy: '/src/common/PrivacyModal.tsx',
-  terms: null,
+  privacy: 'modal',
+  terms: 'modal',
 };

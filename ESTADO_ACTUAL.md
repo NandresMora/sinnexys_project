@@ -75,7 +75,12 @@ Estructurado en un grid de tarjetas con acordeones interactivos ("Ver opciones" 
 
 ### **Footer (`Footer.tsx`)**
 - Incorpora el mismo comportamiento de scroll suave para sus enlaces a las secciones del sitio.
-- **Redes Sociales**: Facebook, Twitter, Instagram y LinkedIn (el de Facebook redirige a `https://web.facebook.com/profile.php?id=61593477464610`, los demás están vacíos `#`).
+- **Redes Sociales**: Facebook, Twitter, Instagram y LinkedIn (el de Facebook redirige a `https://web.facebook.com/profile.php?id=61593477464610`, los demás están desactivados/controlados mediante `site.ts`).
+- **Sección Legal**: Botones interactivos para desplegar modales de **Política de Privacidad** (`PrivacyModal.tsx`) y **Términos y Condiciones** (`TermsModal.tsx`), ambos con soporte de accesibilidad (cierre con tecla Esc, clic fuera del modal y bloqueo de scroll).
+
+### **Modales Legales (`PrivacyModal.tsx`, `TermsModal.tsx`)**
+- **Política de Privacidad**: Cumplimiento de la Ley 1581 de 2012 (Habeas Data Colombia), tratamiento de datos recolectados en Supabase y derechos del titular.
+- **Términos y Condiciones**: Alcance de servicios IT y desarrollo web para Sabana Norte y cobertura remota nacional, validez de cotizaciones (15 días), condiciones de soporte técnico, exclusiones de garantía (Ley 1480 de 2011) y cláusula de responsabilidad de backups por parte del cliente.
 
 ### **Botón de WhatsApp (`WhatsAppButton.tsx`)**
 - Botón flotante fijo en la esquina inferior derecha (`fixed bottom-6 right-6`).
